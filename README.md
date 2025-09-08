@@ -57,7 +57,7 @@ php artisan db:seed --class=LocationsSeeder --force
 
 php artisan serve
 
-Структура (важливі файли):
+# Структура (важливі файли):
 
 -app/
 
@@ -83,3 +83,5 @@ php artisan serve
 
 -public/css/bootstrap.min.css   ← локальний Bootstrap
 
+## Примітка
+Якщо при запиті до апі виникає помилка curl 60 - варто у файлі php.ini Розкоментувати curl.cainfo та openssl.cafile, після чого завантажити актуальний cacart.pem та вказати абсолютний шлях до нього у вище вказані змінні
