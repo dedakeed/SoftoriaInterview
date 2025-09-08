@@ -1,23 +1,28 @@
-# DataForSEO Demo (Laravel)
+# Softoria demo (Laravel)
 
-Форма пошуку з **автодоповненням локацій** (CSV → seed у SQLite) і запитом до **DataForSEO SERP Advanced**.
+A search form with **location autocomplete** (CSV → seed into SQLite) and a request to **DataForSEO SERP Advanced**.
 
-## Вимоги
-- PHP 8.2+ та Composer 2.x
-- SQLite (за замовчуванням) або інша БД
+## Requirements
 
-> Frontend: **Bootstrap підключено локально** з `public/css/bootstrap.min.css`
+- PHP 8.2+ and Composer 2.x
+- 
+- SQLite (by default) or another database
 
-## Швидкий старт
+> Frontend: **Bootstrap is included locally** from `public/css/bootstrap.min.css`.
 
-# 1) Встановити залежності PHP
+## Quick Start
+
+### 1) Install PHP dependencies
+
 composer install
-# 2) Оточення
 
-Створи локальний файл конфігурації (якщо ще немає):
+### 2) Environment
+
+Create a local env file (if you don’t have one yet):
 
 cp .env.example .env
-Відкрий .env і заповни:
+
+Open .env and fill in:
 
 APP_NAME=DataForSEODemo
 
@@ -25,63 +30,66 @@ APP_ENV=local
 
 APP_URL=http://127.0.0.1:8000
 
-
-# База (SQLite)
+#### Database (SQLite)
 
 DB_CONNECTION=sqlite
 
 DB_DATABASE=/absolute/path/to/project/database/database.sqlite
 
-# DataForSEO
-
+#### DataForSEO
 DFS_LOGIN=your_login
 
 DFS_PASS=your_password
 
+If APP_KEY is empty, generate it:
 
-# 3) База даних
+php artisan key:generate
 
-Створи файл БД (для SQLite):
+### 3) Database
+
+Create the database file (for SQLite):
 
 mkdir -p database
 
 touch database/database.sqlite
 
-# 4 Міграції та сід:
+### 4) Migrations & seed
+   php artisan migrate --force
 
-php artisan migrate --force
-
-php artisan db:seed --class=LocationsSeeder --force
-
-# 5 Запуск
-
+   php artisan db:seed --class=LocationsSeeder --force
+### 5) Run the app
 php artisan serve
 
-# Структура (важливі файли):
+### Project structure (key files)
+app/
 
--app/
+- Http/Controllers/SEOApiController.php
 
-   -- Http/Controllers/SEOApiController.php
-   
-   -- Http/Requests/SEOApiRequest.php
-   
-   -- Models/Location.php
-   
--database/
+- Http/Requests/SEOApiRequest.php
 
-    --migrations/xxxx_xx_xx_xxxxxx_create_locations_table.php
+- Models/Location.php
+
+
+- database/
+
+  - migrations/xxxx_xx_xx_xxxxxx_create_locations_table.php
     
-    --seeders/LocationsSeeder.php
+  - seeders/LocationsSeeder.php
     
-    --factories/LocationFactory.php
+  - factories/LocationFactory.php
     
-    -- seeders/data/locations_and_languages_databases_2025_08_05.csv
-   
--resources/views/main-form.blade.php
+  - seeders/data/locations_and_languages_databases_2025_08_05.csv
+    
+  - resources/views/main-form.blade.php
+  
+  - routes/web.php
+  
+  - public/css/bootstrap.min.css   ← local Bootstrap
 
--routes/web.php
+### Note (cURL error 60)
 
--public/css/bootstrap.min.css   ← локальний Bootstrap
+If you get a cURL error 60 when calling the API, open your php.ini, uncomment curl.cainfo and openssl.cafile, download the latest cacert.pem, and set the absolute path to it in those options.
 
-## Примітка
-Якщо при запиті до апі виникає помилка curl 60 - варто у файлі php.ini Розкоментувати curl.cainfo та openssl.cafile, після чого завантажити актуальний cacart.pem та вказати абсолютний шлях до нього у вище вказані змінні
+curl.cainfo = "C:\certs\cacert.pem"
+
+openssl.cafile = "C:\certs\cacert.pem"
