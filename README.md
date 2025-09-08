@@ -46,15 +46,15 @@ php artisan db:seed --class=LocationsSeeder --force
 php artisan serve
 
 ## Примітка. Структура (важливі файли)
-app/
-    Http/Controllers/SEOApiController.php
-    Http/Requests/SEOApiRequest.php
-    Models/Location.php
-database/
-    migrations/xxxx_xx_xx_xxxxxx_create_locations_table.php
-    seeders/LocationsSeeder.php
-    factories/LocationFactory.php
-    seeders/data/locations_and_languages_databases_2025_08_05.csv
-resources/views/main-form.blade.php
-routes/web.php
-public/css/bootstrap.min.css   ← локальний Bootstrap
+-app/
+   -- Http/Controllers/SEOApiController.php
+   -- Http/Requests/SEOApiRequest.php
+   -- Models/Location.php
+-database/
+    --migrations/xxxx_xx_xx_xxxxxx_create_locations_table.php
+    --seeders/LocationsSeeder.php
+    --factories/LocationFactory.php
+   -- seeders/data/locations_and_languages_databases_2025_08_05.csv
+-resources/views/main-form.blade.php
+-routes/web.php
+-public/css/bootstrap.min.css   ← локальний Bootstrap
