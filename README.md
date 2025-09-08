@@ -20,16 +20,24 @@ cp .env.example .env
 Відкрий .env і заповни:
 
 APP_NAME=DataForSEODemo
+
 APP_ENV=local
+
 APP_URL=http://127.0.0.1:8000
 
+
 # База (SQLite)
+
 DB_CONNECTION=sqlite
+
 DB_DATABASE=/absolute/path/to/project/database/database.sqlite
 
 # DataForSEO
+
 DFS_LOGIN=your_login
+
 DFS_PASS=your_password
+
 
 # 3) База даних
 
