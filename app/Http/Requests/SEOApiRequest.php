@@ -25,7 +25,9 @@ class SEOApiRequest extends FormRequest
             'keyword' =>'required|max:200',
             'location'=>'required|integer',
             'language' => 'required',
-            'domain' => 'required|in:google,bing,yahoo'
+            'domain' => 'required|in:google,bing,yahoo',
+            'site' => 'required|string|regex:/^(?!https?:\/\/)(?!www\.)[a-z0-9.-]+\.[a-z]{2,}$/i',
+
         ];
     }
     public function messages(){
@@ -35,7 +37,9 @@ class SEOApiRequest extends FormRequest
             'language.required' =>'Language is required!',
             'location.integer'=>'Location must be an integer!',
             'domain.required' => 'Domain is required!',
-            'domain.in' => 'Only domains "google", "yahoo" or "bing" available'
+            'domain.in' => 'Only domains "google", "yahoo" or "bing" available',
+            'site.required' =>'Website is required!',
+            'site.regex' =>'Please, input a valid url. URL should not start with "https" and "www',
         ];
     }
 }

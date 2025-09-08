@@ -40,7 +40,12 @@
                            value="{{old('keyword') ?: ''}}">
                     @error('keyword') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
-
+                <div class="form-group mb-3">
+                    <label for="site">Website (domain to check)</label>
+                    <input type="text" class="form-control" id="site" name="site"
+                           value="{{ old('site', $data['site'] ?? '') }}" placeholder="example.com">
+                    @error('site') <span class="text-danger">{{ $message }}</span> @enderror
+                </div>
                 <div class="form-group mb-3 position-relative">
                     <label for="location">Location</label>
                     <input id="location" name="location_name" type="text" class="form-control"
@@ -57,7 +62,7 @@
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="domain">Domain</label>
+                    <label for="domain">Search Engine</label>
                     <select class="form-select" aria-label="Default select example" id="domain" name="domain">
                         <option {{old('domain') ?? ''}}>Choose the domain</option>
                         <option {{old('domain') == 'google' ? 'selected' : ''}} value="google">Google</option>
@@ -82,20 +87,48 @@
     <div class="card response flex-fill p-3 overflow-y-scroll" style="max-height: 447px;">
         <h4>Response from API</h4>
         <hr>
-        @if(isset($response))
-            @if(isset($response['error']))
-                <span class="alert alert-danger">{{$response['error']}}</span>
-            @else
-                @foreach($response[0]['items'] as $result)
-                    @if(($result['type'] ?? null) === 'organic')
-                        <a href="{{ $result['url'] }}">{{ $result['title'] }}</a>
-                    @endif
-                @endforeach
+
+        @if(isset($response['error']))
+            <div class="alert alert-danger">{{ $response['error'] }}</div>
+
+        @elseif(isset($response)) {{-- Є відповідь від API (навіть якщо rank = null) --}}
+        {{-- Блок з рангом --}}
+        @if(!is_null($rank))
+            <p>
+                <strong>{{ $data['site'] ?? '' }}</strong> found:
+                <span class="badge bg-success">#{{ $rank['rank_absolute'] }}</span>
+                @if(!empty($rank['rank_group']))
+                    <small class="text-muted">(organic position: {{ $rank['rank_group'] }})</small>
+                @endif
+            </p>
+            @if(!empty($rank['title']) && !empty($rank['url']))
+                <p><a href="{{ $rank['url'] }}" target="_blank" rel="noopener">{{ $rank['title'] }}</a></p>
             @endif
+        @else
+            <div class="alert alert-warning">
+                {{ $data['site'] ?? 'Site' }} not found in top results for “{{ $data['keyword'] ?? '' }}”.
+            </div>
+        @endif
+
+        <hr>
+
+        {{-- Список органічних результатів (показуємо завжди, якщо є response) --}}
+        @foreach(($response['items'] ?? []) as $result)
+            @if(($result['type'] ?? null) === 'organic')
+                <div class="mb-2">
+                    <a href="{{ $result['url'] ?? '#' }}" target="_blank" rel="noopener">
+                        {{ $result['title'] ?? $result['url'] ?? '' }}
+                    </a>
+                    <small class="text-muted"> (#{{ $result['rank_absolute'] ?? '?' }})</small>
+                </div>
+            @endif
+        @endforeach
+
         @else
             <span class="alert alert-info">First you should make a request</span>
         @endif
     </div>
+
 </div>
 
 <script>
