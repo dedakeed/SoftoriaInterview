@@ -44,13 +44,17 @@ DFS_PASS=your_password
 Створи файл БД (для SQLite):
 
 mkdir -p database
+
 touch database/database.sqlite
+
 # 4 Міграції та сід:
 
 php artisan migrate --force
+
 php artisan db:seed --class=LocationsSeeder --force
 
 # 5 Запуск
+
 php artisan serve
 
 Структура (важливі файли):
