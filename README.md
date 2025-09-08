@@ -45,11 +45,16 @@ php artisan db:seed --class=LocationsSeeder --force
 # 5 Запуск
 php artisan serve
 
-## Примітка. Структура (важливі файли)
+Структура (важливі файли):
+
 -app/
+
    -- Http/Controllers/SEOApiController.php
+   
    -- Http/Requests/SEOApiRequest.php
+   
    -- Models/Location.php
+   
 -database/
     --migrations/xxxx_xx_xx_xxxxxx_create_locations_table.php
     --seeders/LocationsSeeder.php
