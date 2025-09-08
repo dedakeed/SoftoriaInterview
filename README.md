@@ -56,10 +56,18 @@ php artisan serve
    -- Models/Location.php
    
 -database/
+
     --migrations/xxxx_xx_xx_xxxxxx_create_locations_table.php
+    
     --seeders/LocationsSeeder.php
+    
     --factories/LocationFactory.php
-   -- seeders/data/locations_and_languages_databases_2025_08_05.csv
+    
+    -- seeders/data/locations_and_languages_databases_2025_08_05.csv
+   
 -resources/views/main-form.blade.php
+
 -routes/web.php
+
 -public/css/bootstrap.min.css   ← локальний Bootstrap
+
